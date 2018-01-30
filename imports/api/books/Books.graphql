@@ -1,0 +1,14 @@
+type Book {
+  _id: String
+  title: String
+  author: String
+  copies: [Copy]
+}
+
+type Query {
+  books: [Book]
+}
+
+type Mutation {
+  createNewBook(title: String!, author: String!): Book
+}

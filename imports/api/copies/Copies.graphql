@@ -1,0 +1,9 @@
+type Copy {
+  _id: String
+  owner: String
+  withOwner: Boolean
+}
+
+extend type Mutation {
+  createCopy(owner: String!, bookId: String!): Copy
+}
