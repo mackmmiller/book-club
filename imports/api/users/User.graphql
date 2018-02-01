@@ -1,6 +1,10 @@
 type User {
   _id: String
   email: String
+  address: String
+  city: String
+  province: String
+  zip: String
 }
 
 extend type Query {

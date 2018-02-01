@@ -9,6 +9,7 @@ class Nav extends Component {
   state = {
     searchTarget: '',
     modalVisible: false,
+    modalTarget: '',
   };
 
   handleChange = (e) => {
@@ -20,6 +21,7 @@ class Nav extends Component {
   handleClick = (e) => {
     this.setState({
       modalVisible: !this.state.modalVisible,
+      modalTarget: e.target.textContent,
     });
   };
 
@@ -37,11 +39,33 @@ class Nav extends Component {
                 <Link to={`/results/${this.state.searchTarget}`}>Submit</Link>
               </button>
             </li>
-            <li onClick={this.handleClick}>Register</li>
-            <li onClick={this.handleClick}>Login</li>
+            {this.props.user._id ? (
+              <div>
+                <li>
+                  <Link to={`/myprofile`}>My Profile</Link>
+                </li>
+                <li
+                  onClick={() => {
+                    Meteor.logout();
+                    this.props.client.resetStore();
+                  }}
+                >
+                  Log out
+                </li>
+              </div>
+            ) : (
+              <div>
+                <li onClick={this.handleClick}>Register</li>
+                <li onClick={this.handleClick}>Login</li>
+              </div>
+            )}
           </ul>
         </NavBar>
-        {this.state.modalVisible && createPortal(<Modal />, document.getElementById('modal'))}
+        {this.state.modalVisible &&
+          createPortal(
+            <Modal client={this.props.client} modalTarget={this.state.modalTarget} />,
+            document.getElementById('modal'),
+          )}
       </div>
     );
   }
@@ -64,6 +88,14 @@ const NavBar = styled.nav`
       margin: 1rem;
       padding: 1rem;
       font-size: 2rem;
+    }
+    > div {
+      display: flex;
+      align-items: center;
+      > li {
+        margin: 1rem;
+        font-size: 2rem;
+      }
     }
   }
 `;

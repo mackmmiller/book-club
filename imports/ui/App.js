@@ -8,23 +8,38 @@ import Nav from './Nav';
 import SearchResults from './SearchResults';
 import Index from './Index';
 import Footer from './Footer';
+import MyProfile from './MyProfile';
 
-const App = () => (
-  <Router>
-    <Wrapper>
-      <Nav />
-      <Main>
-        <Switch>
-          <Route exact path="/" component={Index} />
-          <Route path="/results/:search" component={SearchResults} />
-        </Switch>
-      </Main>
-      <Footer />
-    </Wrapper>
-  </Router>
-);
+const App = ({ loading, client, user }) => {
+  if (loading) return null;
+  return (
+    <Router>
+      <Wrapper>
+        <Nav client={client} user={user} />
+        <Main>
+          <Switch>
+            <Route exact path="/" component={Index} />
+            <Route path="/results/:search" component={SearchResults} />
+            <Route exact path="/myprofile" component={MyProfile} />
+          </Switch>
+        </Main>
+        <Footer />
+      </Wrapper>
+    </Router>
+  );
+};
 
-export default App;
+const userQuery = gql`
+  query Users {
+    user {
+      _id
+    }
+  }
+`;
+
+export default graphql(userQuery, {
+  props: ({ data }) => ({ ...data }),
+})(withApollo(App));
 
 const Wrapper = styled.div`
   display: flex;

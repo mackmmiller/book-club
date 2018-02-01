@@ -1,43 +1,64 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Accounts } from 'meteor/accounts-base';
 import styled from 'styled-components';
 
-const RegisterForm = () => (
-  <div>
-    <Form>
-      <h2>Registration</h2>
-      <Div>
-        <label htmlFor="email">Email</label>
-        <input type="text" name="email" />
-      </Div>
-      <Div>
-        <label htmlFor="password">Password</label>
-        <input type="password" name="password" />
-      </Div>
-      <Div>
-        <label htmlFor="password2">Confirm Password</label>
-        <input type="password" name="password2" />
-      </Div>
-      <hr />
-      <Div>
-        <label htmlFor="address">Address</label>
-        <input type="Address" name="address" />
-      </Div>
-      <Div>
-        <label htmlFor="city">City</label>
-        <input type="City" name="city" />
-      </Div>
-      <Div>
-        <label htmlFor="state">State</label>
-        <input type="State" name="state" />
-      </Div>
-      <Div>
-        <label htmlFor="zip">Zip Code</label>
-        <input type="Zip" name="zip" />
-      </Div>
-      <input type="submit" />
-    </Form>
-  </div>
-);
+class RegisterForm extends Component {
+  registerUser = (e) => {
+    e.preventDefault();
+    Accounts.createUser(
+      {
+        email: this.email.value,
+        password: this.password.value,
+        address: this.address.value,
+        city: this.city.value,
+        province: this.province.value,
+        zip: this.zip.value,
+      },
+      (error) => {
+        if (!error) {
+          this.props.client.resetStore();
+        }
+        console.log(error);
+      },
+    );
+  };
+
+  render() {
+    return (
+      <div>
+        <Form onSubmit={this.registerUser}>
+          <h2>Registration</h2>
+          <Div>
+            <label htmlFor="email">Email</label>
+            <input type="text" name="email" ref={input => (this.email = input)} />
+          </Div>
+          <Div>
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" ref={input => (this.password = input)} />
+          </Div>
+          <hr />
+          <Div>
+            <label htmlFor="address">Address</label>
+            <input type="Address" name="address" ref={input => (this.address = input)} />
+          </Div>
+          <Div>
+            <label htmlFor="city">City</label>
+            <input type="City" name="city" ref={input => (this.city = input)} />
+          </Div>
+          <Div>
+            <label htmlFor="state">State</label>
+            <input type="State" name="state" ref={input => (this.province = input)} />
+          </Div>
+          <Div>
+            <label htmlFor="zip">Zip Code</label>
+            <input type="Zip" name="zip" ref={input => (this.zip = input)} />
+          </Div>
+          <input type="submit" />
+        </Form>
+      </div>
+    );
+  }
+}
 
 export default RegisterForm;
 
