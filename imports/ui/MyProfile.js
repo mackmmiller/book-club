@@ -24,13 +24,13 @@ const MyProfile = ({ loading, myBooks }) => {
   return (
     <div>
       <h2>My Library</h2>
-      <ul>
+      <StyledUl>
         {myBooks.map(book => (
           <li key={book._id}>
             {book.title} by {book.author}
           </li>
         ))}
-      </ul>
+      </StyledUl>
       <hr />
       <Forms>
         <AddToLibrary />
@@ -49,5 +49,15 @@ const Forms = styled.div`
   > div {
     width: 100%;
     text-align: center;
+  }
+`;
+
+const StyledUl = styled.ul`
+  padding: 0;
+  margin: 0;
+  font-size: 2rem;
+  > li {
+    list-style: none;
+    padding: 1rem;
   }
 `;

@@ -1,0 +1,9 @@
+type Trade {
+  _id: String
+  party1: String
+  party2: String
+}
+
+extend type Mutation {
+  createTrade(party1: String!, party2: String): Trade
+}

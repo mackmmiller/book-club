@@ -25,24 +25,39 @@ class Nav extends PureComponent {
     });
   };
 
+  closeModal = (e) => {
+    if (e.target.classList.contains('wrapper')) {
+      this.setState({
+        modalVisible: false,
+      });
+    }
+  };
+
   render() {
     return (
       <div>
         <NavBar>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/" href="/">
+                Home
+              </Link>
             </li>
             <li>
               <input type="text" onChange={this.handleChange} placeholder="Search Books" />
               <button>
-                <Link to={`/results/${this.state.searchTarget}`}>Submit</Link>
+                <Link
+                  to={`/results/${this.state.searchTarget}`}
+                  href={`/results/${this.state.searchTarget}`}
+                >
+                  Submit
+                </Link>
               </button>
             </li>
             {this.props.user._id ? (
               <div>
                 <li>
-                  <Link to={`/myprofile`}>My Profile</Link>
+                  <Link to="/myprofile">My Profile</Link>
                 </li>
                 <li
                   onClick={() => {
@@ -63,7 +78,11 @@ class Nav extends PureComponent {
         </NavBar>
         {this.state.modalVisible &&
           createPortal(
-            <Modal client={this.props.client} modalTarget={this.state.modalTarget} />,
+            <Modal
+              client={this.props.client}
+              modalTarget={this.state.modalTarget}
+              handleClick={this.closeModal.bind(this)}
+            />,
             document.getElementById('modal'),
           )}
       </div>

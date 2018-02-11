@@ -73,5 +73,13 @@ const Trades = styled.div`
   font-size: 1.6rem;
   > div {
     width: 100%;
+    > ul {
+      padding: 0;
+      margin: 0;
+      > li {
+        list-style: none;
+        padding: 1rem;
+      }
+    }
   }
 `;

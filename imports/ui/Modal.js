@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import RegisterForm from './RegisterForm';
 import LoginForm from './LoginForm';
 
-const Modal = ({ client, modalTarget }) => (
-  <Wrapper onClick={e => console.log(e.target.classList)} className="wrapper">
+const Modal = ({ client, modalTarget, handleClick }) => (
+  <Wrapper onClick={handleClick} className="wrapper">
     <Div>
       {modalTarget === 'Register' ? (
         <RegisterForm client={client} />
@@ -35,5 +35,4 @@ const Wrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: blue;
 `;
