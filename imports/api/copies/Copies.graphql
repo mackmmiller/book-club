@@ -5,5 +5,5 @@ type Copy {
 }
 
 extend type Mutation {
-  createCopy(owner: String!, bookId: String!): Copy
+  createCopy(title: String!, author: String!): Copy
 }

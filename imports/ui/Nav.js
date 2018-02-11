@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Modal from './Modal';
 
-class Nav extends Component {
+class Nav extends PureComponent {
   state = {
     searchTarget: '',
     modalVisible: false,

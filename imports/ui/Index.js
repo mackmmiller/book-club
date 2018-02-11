@@ -1,7 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 
-const Index = () => (
+const booksQuery = gql`
+  query booksQuery {
+    books {
+      _id
+      title
+      author
+    }
+  }
+`;
+
+const Index = ({ loading, books }) => (
   <div>
     <Header>
       <h1>Welcome to Book Trader</h1>
@@ -13,6 +25,18 @@ const Index = () => (
       <Trades>
         <div>
           <h3>Up for Grabs</h3>
+          {loading ? null : (
+            <ul>
+              {books.map(book => (
+                <li key={book._id}>
+                  <span>
+                    {book.title}
+                    <br />by {book.author}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <div>
           <h3>Looking For</h3>
@@ -22,7 +46,7 @@ const Index = () => (
   </div>
 );
 
-export default Index;
+export default graphql(booksQuery, { props: ({ data }) => ({ ...data }) })(Index);
 
 const Header = styled.header`
   text-align: center;

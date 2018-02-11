@@ -3,9 +3,10 @@ import Copies from '../copies/copies';
 
 export default {
   Query: {
-    books() {
-      return Books.find({}).fetch();
+    books(obj, args, { bookId }) {
+      return Books.find({ bookId }).fetch();
     },
+    myBooks(obj, args, { userId }) {},
   },
 
   Book: {
@@ -13,7 +14,7 @@ export default {
   },
 
   Mutation: {
-    createNewBook(obj, { title, author }) {
+    createBook(obj, { title, author }) {
       const bookId = Books.insert({
         title,
         author,
@@ -21,5 +22,4 @@ export default {
       return Books.findOne(bookId);
     },
   },
-}
-;
+};

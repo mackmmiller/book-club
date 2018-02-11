@@ -9,7 +9,7 @@ import CopiesResolvers from '../../api/copies/resolvers';
 import UsersSchema from '../../api/users/User.graphql';
 import UsersResolvers from '../../api/users/resolvers';
 
-// hissss
+// his
 const typeDefs = [BooksSchema, CopiesSchema, UsersSchema];
 
 const resolvers = merge(BooksResolvers, CopiesResolvers, UsersResolvers);
