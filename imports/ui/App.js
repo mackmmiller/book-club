@@ -44,11 +44,12 @@ export default graphql(userQuery, {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 const Main = styled.main`
   width: 80%;
+  padding: 2rem 0;
   margin: auto;
   flex: 1 0 auto;
 `;

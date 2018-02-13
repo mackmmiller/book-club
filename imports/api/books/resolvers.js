@@ -6,6 +6,10 @@ export default {
     books(obj, args, { bookId }) {
       return Books.find({ bookId }).fetch();
     },
+    // searchForBook needs work
+    searchForBook(obj, { title }) {
+      return Books.find({ title }).fetch();
+    },
     myBooks(obj, args, { userId }) {
       const copies = Copies.find({ owner: userId });
       const ids = copies.map(book => book.bookId);

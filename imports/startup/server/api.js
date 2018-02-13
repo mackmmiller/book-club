@@ -6,13 +6,15 @@ import BooksSchema from '../../api/books/Books.graphql';
 import BooksResolvers from '../../api/books/resolvers';
 import CopiesSchema from '../../api/copies/Copies.graphql';
 import CopiesResolvers from '../../api/copies/resolvers';
+import RequestsSchema from '../../api/requests/Requests.graphql';
+import RequestsResolvers from '../../api/requests/resolvers';
 import UsersSchema from '../../api/users/User.graphql';
 import UsersResolvers from '../../api/users/resolvers';
 
-// hisassssssssssssasdfasasdfasasdd
-const typeDefs = [BooksSchema, CopiesSchema, UsersSchema];
+// hisss
+const typeDefs = [BooksSchema, CopiesSchema, RequestsSchema, UsersSchema];
 
-const resolvers = merge(BooksResolvers, CopiesResolvers, UsersResolvers);
+const resolvers = merge(BooksResolvers, CopiesResolvers, RequestsResolvers, UsersResolvers);
 
 const schema = makeExecutableSchema({
   typeDefs,

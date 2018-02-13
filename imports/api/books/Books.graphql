@@ -8,6 +8,7 @@ type Book {
 type Query {
   books: [Book]
   myBooks: [Book]
+  searchForBook(title: String!): [Book]
 }
 
 type Mutation {

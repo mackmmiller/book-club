@@ -9,7 +9,6 @@ class LoginForm extends Component {
       console.log(error);
       if (!error) {
         this.props.client.resetStore();
-        this.closeModal;
       }
     });
   };

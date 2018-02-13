@@ -43,4 +43,7 @@ class AddToLibrary extends Component {
 
 export default graphql(createCopy, {
   name: 'createCopy',
+  options: {
+    refetchQueries: ['myBooks'],
+  },
 })(AddToLibrary);

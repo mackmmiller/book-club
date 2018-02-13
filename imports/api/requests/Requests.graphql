@@ -1,0 +1,13 @@
+type Request {
+  _id: String
+  requester: User
+  book: Book
+}
+
+extend type Query {
+  requests: [Request]
+}
+
+extend type Mutation {
+  createRequest(title: String!, author: String!): Request
+}

@@ -40,7 +40,7 @@ class Nav extends PureComponent {
           <ul>
             <li>
               <Link to="/" href="/">
-                Home
+                <i className="fas fa-home" />
               </Link>
             </li>
             <li>
@@ -59,19 +59,25 @@ class Nav extends PureComponent {
                 <li>
                   <Link to="/myprofile">My Profile</Link>
                 </li>
-                <li
-                  onClick={() => {
-                    Meteor.logout();
-                    this.props.client.resetStore();
-                  }}
-                >
-                  Log out
+                <li>
+                  <button
+                    onClick={() => {
+                      Meteor.logout();
+                      this.props.client.resetStore();
+                    }}
+                  >
+                    Log out
+                  </button>
                 </li>
               </div>
             ) : (
               <div>
-                <li onClick={this.handleClick}>Register</li>
-                <li onClick={this.handleClick}>Login</li>
+                <li>
+                  <button onClick={this.handleClick}>Register</button>
+                </li>
+                <li>
+                  <button onClick={this.handleClick}>Login</button>
+                </li>
               </div>
             )}
           </ul>
