@@ -11,7 +11,7 @@ import RequestsResolvers from '../../api/requests/resolvers';
 import UsersSchema from '../../api/users/User.graphql';
 import UsersResolvers from '../../api/users/resolvers';
 
-// ssssssss
+// ssss
 const typeDefs = [BooksSchema, CopiesSchema, RequestsSchema, UsersSchema];
 
 const resolvers = merge(BooksResolvers, CopiesResolvers, RequestsResolvers, UsersResolvers);
