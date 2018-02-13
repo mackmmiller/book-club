@@ -13,16 +13,39 @@ const myBooks = gql`
       title
       author
     }
+    myRequests {
+      _id
+      supplier {
+        email
+      }
+      book {
+        title
+        author
+      }
+    }
     user {
       _id
     }
   }
 `;
 
-const MyProfile = ({ loading, myBooks }) => {
+const MyProfile = ({ loading, myBooks, myRequests }) => {
   if (loading) return null;
   return (
     <div>
+      <h2>My Requests</h2>
+      <StyledUl>
+        {myRequests.map(request => (
+          <li key={request._id}>
+            <h3>{request.book.title}</h3>
+            {request.supplier && (
+              <span>
+                <strong>supplier:</strong> {request.supplier.email}
+              </span>
+            )}
+          </li>
+        ))}
+      </StyledUl>
       <h2>My Library</h2>
       <StyledUl>
         {myBooks.map(book => (
@@ -59,5 +82,11 @@ const StyledUl = styled.ul`
   > li {
     list-style: none;
     padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    > h3 {
+      display: inline-block;
+      margin: 0 auto 0 0;
+    }
   }
 `;

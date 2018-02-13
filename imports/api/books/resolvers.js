@@ -3,8 +3,8 @@ import Copies from '../copies/copies';
 
 export default {
   Query: {
-    books(obj, args, { bookId }) {
-      return Books.find({ bookId }).fetch();
+    books(obj, args) {
+      return Books.find({}).fetch();
     },
     // searchForBook needs work
     searchForBook(obj, { title }) {

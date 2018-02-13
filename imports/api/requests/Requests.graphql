@@ -1,13 +1,16 @@
 type Request {
   _id: String
   requester: User
+  supplier: User
   book: Book
 }
 
 extend type Query {
   requests: [Request]
+  myRequests: [Request]
 }
 
 extend type Mutation {
   createRequest(title: String!, author: String!): Request
+  addSupplier(_id: String!): Request
 }

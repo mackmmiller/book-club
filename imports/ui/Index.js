@@ -32,8 +32,17 @@ const createRequest = gql`
   }
 `;
 
+const addSupplier = gql`
+  mutation addSupplier($id: String!) {
+    addSupplier(_id: $id) {
+      _id
+    }
+  }
+`;
+
 class Index extends Component {
-  createRequest = (title, author) => {
+  createRequest = (title, author, id) => {
+    console.log(title, author, id);
     this.props
       .createRequest({
         variables: {
@@ -44,8 +53,19 @@ class Index extends Component {
       .catch(err => console.log(err));
   };
 
+  addSupplier = (id) => {
+    this.props
+      .addSupplier({
+        variables: {
+          id,
+        },
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     const { loading, books, requests } = this.props;
+    console.log(requests);
     return (
       <div>
         <Header>
@@ -64,7 +84,7 @@ class Index extends Component {
                     <Book key={book._id}>
                       <h3>{book.title}</h3>
                       <h4>by {book.author}</h4>
-                      <button onClick={() => this.createRequest(book.title, book.author)}>
+                      <button onClick={() => this.createRequest(book.title, book.author, book._id)}>
                         Request Title
                       </button>
                     </Book>
@@ -78,10 +98,11 @@ class Index extends Component {
                 <ul>
                   {requests.map(request => (
                     <Book key={request._id}>
-                      <p>{request.requester.email} requests:</p>
-                      <span>
+                      <h3>{request.requester.email} requests:</h3>
+                      <h4>
                         {request.book.title} by {request.book.author}
-                      </span>
+                      </h4>
+                      <button onClick={() => this.addSupplier(request._id)}>I'll Ship It</button>
                     </Book>
                   ))}
                 </ul>
@@ -101,6 +122,9 @@ export default compose(
     options: {
       refetchQueries: ['booksQuery'],
     },
+  }),
+  graphql(addSupplier, {
+    name: 'addSupplier',
   }),
 )(Index);
 

@@ -2,16 +2,26 @@ import Requests from './requests';
 import Copies from '../copies/copies';
 import Books from '../books/books';
 
+/* Helper functions */
+function checkForBook(title, author) {
+  const bookId = Books.findOne({ title, author });
+  return bookId;
+}
+
 export default {
   Query: {
-    requests(obj, args, context) {
+    requests(obj, args) {
       return Requests.find({}).fetch();
+    },
+    myRequests(obj, args, { userId }) {
+      return Requests.find({ requester: userId }).fetch();
     },
   },
 
   Request: {
     requester: request => Meteor.users.findOne({ _id: request.requester }),
-    book: request => Books.findOne({ title: request.title, author: request.author }),
+    supplier: request => Meteor.users.findOne({ _id: request.supplier }),
+    book: request => Books.findOne(request.book._id),
   },
 
   Mutation: {
@@ -21,14 +31,10 @@ export default {
         book: bookId,
         requester: userId,
       });
-      console.log(requestId);
       return Requests.findOne(requestId);
+    },
+    addSupplier(obj, { _id }, { userId }) {
+      Requests.update(_id, { $set: { supplier: userId } });
     },
   },
 };
-
-/* Helper functions */
-function checkForBook(title, author) {
-  const bookId = Books.findOne({ title, author });
-  return bookId;
-}
